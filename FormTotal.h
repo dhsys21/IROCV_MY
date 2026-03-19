@@ -587,6 +587,7 @@ public:		// User declarations
 	int remLimit;
     void __fastcall VisibleSpec(bool bUseAverage);
 	void __fastcall SetRemeasureList();
+    void __fastcall SetRemeasureListAfter();
 	void __fastcall SetRemeasureList2();
 	void __fastcall AddRemeasureList();
 	void __fastcall ViewRemeasureList();

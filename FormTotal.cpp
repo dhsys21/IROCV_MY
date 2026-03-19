@@ -1111,6 +1111,103 @@ void __fastcall TTotalForm::CmdTestMode()
 	}
 }
 //---------------------------------------------------------------------------
+void __fastcall TTotalForm::SetRemeasureListAfter()
+{
+	bool brem = false;
+	int remeasure_cnt = 0;
+	retest.cnt_error = 0;
+
+    for(int index = 0;index < MAXCHANNEL;++index){
+        if(tray.cell[index] == 1){
+            if(tray.after_value[index] == 999){                 //* 4 => 접촉불량(CE)
+                retest.cell[index] = 4;
+                retest.cnt_error += 1;
+                remeasure_cnt += 1;
+                if(tray.first) acc_remeasure[index] += 1;
+            }
+            else if(tray.after_value[index] < config.ir_min || tray.after_value[index] > config.ir_max){
+                if(retest.cell[index] != 4){
+                    retest.cell[index] = 2;
+                    retest.cnt_error += 1;
+                    remeasure_cnt += 1;
+                    if(tray.first) acc_remeasure[index] += 1;	//* 2 => ir spec 불량
+                }
+            }
+            else if(tray.ocv_value[index] < config.ocv_min || tray.ocv_value[index] > config.ocv_max){
+                if(retest.cell[index] != 2 || retest.cell[index] != 4){
+                    retest.cell[index] = 3;
+                    retest.cnt_error += 1;
+                    remeasure_cnt += 1;
+                    if(tray.first) acc_remeasure[index] += 1;   //* 3 => ocv spec 불량
+                }
+            }else{
+                retest.cell[index] = 0;
+            }
+        }
+        else retest.cell[index] = 0;
+    }
+
+	WriteCommLog("IR/OCV STOP", "SetRemeasureListAfter()");
+}
+//---------------------------------------------------------------------------
+void __fastcall TTotalForm::SetRemeasureList()
+{
+	bool brem = false;
+	int remeasure_cnt = 0;
+
+	if(stage.arl == nAuto){
+		retest.cnt_error = 0;
+
+		for(int index = 0;index < MAXCHANNEL;++index){
+			if(tray.cell[index] == 1){
+                if(tray.after_value[index] == 999){                 //* 4 => 접촉불량(CE)
+                    retest.cell[index] = 4;
+                    retest.cnt_error += 1;
+                    remeasure_cnt += 1;
+                    if(tray.first) acc_remeasure[index] += 1;
+                }
+				else if(tray.after_value[index] < config.ir_min || tray.after_value[index] > config.ir_max){
+                    if(retest.cell[index] != 4){
+                        retest.cell[index] = 2;
+                        retest.cnt_error += 1;
+                        remeasure_cnt += 1;
+                        if(tray.first) acc_remeasure[index] += 1;	//* 2 => ir spec 불량
+                    }
+				}
+				else if(tray.ocv_value[index] < config.ocv_min || tray.ocv_value[index] > config.ocv_max){
+					if(retest.cell[index] != 2 || retest.cell[index] != 4){
+						retest.cell[index] = 3;
+						retest.cnt_error += 1;
+						remeasure_cnt += 1;
+						if(tray.first) acc_remeasure[index] += 1;   //* 3 => ocv spec 불량
+					}
+				}else{
+					retest.cell[index] = 0;
+				}
+			}
+			else retest.cell[index] = 0;
+		}
+
+        tray.first = false;
+
+		if((remeasure_cnt < remLimit) && (remeasure_cnt > 0)) brem = true;
+		else brem= false;
+
+		if(brem == false){
+			CmdForceStop();     // Probe Open
+		}
+		else{
+			tray.rem_mode = 1;
+			retest.re_index = 0;
+			RemeasureExcute();
+		}
+	} else {
+		CmdForceStop();
+	}
+
+	WriteCommLog("IR/OCV STOP", "SetRemeasureList()");
+}
+//---------------------------------------------------------------------------
 // 개별 재측정
 void __fastcall TTotalForm::RemeasureExcute()
 {
@@ -1132,7 +1229,8 @@ void __fastcall TTotalForm::RemeasureExcute()
 				this->MakeData(3, "IR*", FormatFloat("000", value));
 				if(tray.ocv_value[i] < config.ocv_min || tray.ocv_value[i] > config.ocv_max){
 					retest.cell[i] = 3;
-				}else{
+				}
+                else{
 					retest.re_index = ++i;
 				}
 				return;
@@ -1143,7 +1241,7 @@ void __fastcall TTotalForm::RemeasureExcute()
                 } else if(tray.after_value[i] < config.ir_min || tray.after_value[i] > config.ir_max){
 					retest.cell[i] = 2;
 				}
-				retest.re_index = ++i;
+                retest.re_index = ++i;
 				return;
 			default:
 				break;
@@ -1151,7 +1249,7 @@ void __fastcall TTotalForm::RemeasureExcute()
 	}
 	retest.re_excute = false;
     //* 2025 11 28 주석 처리 - SetRemeasureList를 2번 처리함.
-	//SetRemeasureList();
+	SetRemeasureListAfter();
 	CmdForceStop();
 	WriteCommLog("IR/OCV STOP", "RemeasureExcute()");
 }
@@ -1507,64 +1605,6 @@ double __fastcall TTotalForm::GetSigma(float values[], bool flags[], double avg,
 
 	sigma = sqrt(sum / ncount);
     return sigma;
-}
-//---------------------------------------------------------------------------
-void __fastcall TTotalForm::SetRemeasureList()
-{
-	bool brem = false;
-	int remeasure_cnt = 0;
-
-	if(stage.arl == nAuto){
-		retest.cnt_error = 0;
-
-		for(int index = 0;index < MAXCHANNEL;++index){
-			if(tray.cell[index] == 1){
-                if(tray.after_value[index] == 999){                 //* 4 => 접촉불량(CE)
-                    retest.cell[index] = 4;
-                    retest.cnt_error += 1;
-                    remeasure_cnt += 1;
-                    if(tray.first) acc_remeasure[index] += 1;
-                }
-				else if(tray.after_value[index] < config.ir_min || tray.after_value[index] > config.ir_max){
-                    if(retest.cell[index] != 4){
-                        retest.cell[index] = 2;
-                        retest.cnt_error += 1;
-                        remeasure_cnt += 1;
-                        if(tray.first) acc_remeasure[index] += 1;	//* 2 => ir spec 불량
-                    }
-				}
-				else if(tray.ocv_value[index] < config.ocv_min || tray.ocv_value[index] > config.ocv_max){
-					if(retest.cell[index] != 2 || retest.cell[index] != 4){
-						retest.cell[index] = 3;
-						retest.cnt_error += 1;
-						remeasure_cnt += 1;
-						if(tray.first) acc_remeasure[index] += 1;   //* 3 => ocv spec 불량
-					}
-				}else{
-					retest.cell[index] = 0;
-				}
-			}
-			else retest.cell[index] = 0;
-		}
-
-        tray.first = false;
-
-		if((remeasure_cnt < remLimit) && (remeasure_cnt > 0)) brem = true;
-		else brem= false;
-
-		if(brem == false){
-			CmdForceStop();     // Probe Open
-		}
-		else{
-			tray.rem_mode = 1;
-			retest.re_index = 0;
-			RemeasureExcute();
-		}
-	} else {
-		CmdForceStop();
-	}
-
-	WriteCommLog("IR/OCV STOP", "SetRemeasureList()");
 }
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::ViewRemeasureList()

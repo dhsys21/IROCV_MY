@@ -1548,7 +1548,7 @@ object MeasureInfoForm: TMeasureInfoForm
     end
   end
   object grbChannelInfo: TGroupBox
-    Left = 980
+    Left = 988
     Top = 42
     Width = 256
     Height = 159
