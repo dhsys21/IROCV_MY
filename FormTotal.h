@@ -601,6 +601,7 @@ public:		// User declarations
 
 	void __fastcall DisplayTrayInfo();
     void __fastcall ShowPLCSignal(TAdvSmoothPanel *advPanel, bool bOn);
+    void __fastcall CheckPassword();
 
 	__fastcall TTotalForm(TComponent* Owner);
 	bool bLocal, n_bMeasureStart;

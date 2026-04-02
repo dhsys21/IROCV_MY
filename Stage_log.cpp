@@ -112,6 +112,7 @@ bool __fastcall TTotalForm::ReadSystemInfo()
 
 	editModelName->Text = ini->ReadString("CELLINFO", "MODELNAME", "20PQ");
     editPwd->Text = ini->ReadString("PASSWORD", "PWD", "Eveml@123");
+    config.pwd = editPwd->Text;
 
 	chkUseAverage->Checked = config.average_use;
 	RemeasureChk->Checked = config.remeasure_use;

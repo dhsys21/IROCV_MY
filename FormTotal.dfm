@@ -6547,6 +6547,7 @@ object TotalForm: TTotalForm
         Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
         ParentFont = False
+        PasswordChar = '*'
         TabOrder = 0
         Text = 'Eveml@123'
       end

@@ -2173,37 +2173,13 @@ void __fastcall TTotalForm::btnConfigClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::PasswordBtnClick(TObject *Sender)
 {
-    UnicodeString msg = Form_Language->msgIncorrectPwd;
-    if(PassEdit->Text == editPwd->Text){
-        pnlConfig->Visible = true;
-		pnlConfig->Left = 10;
-		pnlConfig->Top = 50;
-
-        PassEdit->Text = "";
-        pPassword->Visible = false;
-	}
-	else{
-		//MessageBox(Handle, L"Are you sure you¡¯re spelling your password correctly?", L"ERROR", MB_OK|MB_ICONERROR);
-        MessageBox(Handle, msg.c_str(), L"ERROR", MB_OK|MB_ICONERROR);
-	}
+    CheckPassword();
 }
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::PassEditKeyPress(TObject *Sender, System::WideChar &Key)
 {
-    UnicodeString msg = Form_Language->msgIncorrectPwd;
     if(Key == '\r'){
-        if(PassEdit->Text == editPwd->Text){
-            pnlConfig->Visible = true;
-            pnlConfig->Left = 10;
-            pnlConfig->Top = 50;
-
-            PassEdit->Text = "";
-            pPassword->Visible = false;
-        }
-        else{
-            //MessageBox(Handle, L"Are you sure you¡¯re spelling your password correctly?", L"ERROR", MB_OK|MB_ICONERROR);
-            MessageBox(Handle, msg.c_str(), L"ERROR", MB_OK|MB_ICONERROR);
-        }
+        CheckPassword();
 
         Key = 0;
     }
@@ -2214,7 +2190,23 @@ void __fastcall TTotalForm::cancelBtn2Click(TObject *Sender)
     pnlConfig->Visible = false;
 }
 //---------------------------------------------------------------------------
+void __fastcall TTotalForm::CheckPassword()
+{
+    UnicodeString msg = Form_Language->msgIncorrectPwd;
+    if(PassEdit->Text == config.pwd){ //editPwd->Text){
+        pnlConfig->Visible = true;
+		pnlConfig->Left = 10;
+		pnlConfig->Top = 50;
 
+        editPwd->Text = config.pwd;
+        PassEdit->Text = "";
+        pPassword->Visible = false;
+	}
+	else{
+		//MessageBox(Handle, L"Are you sure you¡¯re spelling your password correctly?", L"ERROR", MB_OK|MB_ICONERROR);
+        MessageBox(Handle, msg.c_str(), L"ERROR", MB_OK|MB_ICONERROR);
+	}
+}
 //---------------------------------------------------------------------------
 
 void __fastcall TTotalForm::btnPLCConnectClick(TObject *Sender)

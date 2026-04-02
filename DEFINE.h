@@ -226,6 +226,7 @@ typedef struct{
     int remeasure_alarm_cnt;
 	bool remeasure_use;
 	bool remeasure_bypass;
+    AnsiString pwd;
 }CONFIG;
 
 #endif
