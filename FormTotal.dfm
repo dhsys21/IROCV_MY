@@ -5958,8 +5958,8 @@ object TotalForm: TTotalForm
       end
     end
     object btnCloseConnConfig: TAdvSmoothButton
-      Left = 470
-      Top = 145
+      Left = 463
+      Top = 115
       Width = 120
       Height = 60
       Appearance.Font.Charset = DEFAULT_CHARSET
@@ -5995,8 +5995,8 @@ object TotalForm: TTotalForm
       TMSStyle = 8
     end
     object btnSaveConnConfig: TAdvSmoothButton
-      Left = 470
-      Top = 78
+      Left = 463
+      Top = 48
       Width = 120
       Height = 60
       Appearance.Font.Charset = DEFAULT_CHARSET
@@ -6032,8 +6032,8 @@ object TotalForm: TTotalForm
       TMSStyle = 8
     end
     object Button1: TButton
-      Left = 480
-      Top = 27
+      Left = 376
+      Top = 7
       Width = 75
       Height = 25
       Caption = 'Button1'
@@ -6473,8 +6473,8 @@ object TotalForm: TTotalForm
       end
     end
     object chkUseAverage: TCheckBox
-      Left = 469
-      Top = 227
+      Left = 456
+      Top = 7
       Width = 128
       Height = 25
       Caption = 'Use Average'
@@ -6551,6 +6551,69 @@ object TotalForm: TTotalForm
         TabOrder = 0
         Text = 'Eveml@123'
       end
+    end
+    object RadioGroup1: TRadioGroup
+      Left = 456
+      Top = 224
+      Width = 129
+      Height = 62
+      Caption = 'SPEED MODE'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 9
+    end
+    object rbSpeedMed: TRadioButton
+      Tag = 1
+      Left = 462
+      Top = 262
+      Width = 54
+      Height = 17
+      Caption = 'MED'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 10
+      OnClick = rbSpeedFastClick
+    end
+    object rbSpeedFast: TRadioButton
+      Tag = 2
+      Left = 522
+      Top = 262
+      Width = 54
+      Height = 17
+      Caption = 'FAST'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 11
+      TabStop = True
+      OnClick = rbSpeedFastClick
+    end
+    object rbSpeedSlow: TRadioButton
+      Left = 462
+      Top = 243
+      Width = 54
+      Height = 17
+      Caption = 'SLOW'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 12
+      OnClick = rbSpeedFastClick
     end
   end
   object pPassword: TPanel

@@ -336,6 +336,10 @@ __published:	// IDE-managed Components
 	TAdvSmoothButton *PasswordBtn;
 	TGroupBox *GroupBox8;
 	TEdit *editPwd;
+	TRadioGroup *RadioGroup1;
+	TRadioButton *rbSpeedMed;
+	TRadioButton *rbSpeedFast;
+	TRadioButton *rbSpeedSlow;
 	void __fastcall ClientConnect(TObject *Sender,
 		  TCustomWinSocket *Socket);
 	void __fastcall ClientDisconnect(TObject *Sender,
@@ -391,6 +395,7 @@ __published:	// IDE-managed Components
 	void __fastcall PasswordBtnClick(TObject *Sender);
 	void __fastcall cancelBtn2Click(TObject *Sender);
 	void __fastcall PassEditKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall rbSpeedFastClick(TObject *Sender);
 
 private:	// User declarations
 //------------ Æû °ü·Ã -------------------//
@@ -517,6 +522,7 @@ public:		// User declarations
 
 	void __fastcall CmdTestMode();
 	void __fastcall CmdManualMod(bool Set);
+    void __fastcall CmdSpeedSet(int mode);
 	void __fastcall CmdRestart();
 
 	void __fastcall plc_Barcode();

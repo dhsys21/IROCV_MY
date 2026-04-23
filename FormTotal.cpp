@@ -2525,3 +2525,11 @@ void __fastcall TTotalForm::lblTitleDblClick(TObject *Sender)
 
 
 
+
+void __fastcall TTotalForm::rbSpeedFastClick(TObject *Sender)
+{
+    TRadioButton *rb = (TRadioButton*)Sender;
+    CmdSpeedSet(rb->Tag);
+}
+//---------------------------------------------------------------------------
+

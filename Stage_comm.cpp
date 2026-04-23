@@ -142,8 +142,20 @@ void __fastcall TTotalForm::CmdGetSensorInfo()
 	MakeData(0,"SEN");
 }
 //---------------------------------------------------------------------------
+void __fastcall TTotalForm::CmdSpeedSet(int mode)
+{
+    if(mode == 0) MakeData(1, "IRT0");
+    else if(mode == 1) MakeData(1, "IRT1");
+    else if(mode == 2) MakeData(1, "IRT2");
+}
+//---------------------------------------------------------------------------
 void __fastcall TTotalForm::CmdManualMod(bool Set)
 {
+    //* 속도 변경 IRT0->slow IRT1->medium IRT2->fast
+    if(rbSpeedSlow->Checked) CmdSpeedSet(0);
+    else if(rbSpeedMed->Checked) CmdSpeedSet(1);
+    else if(rbSpeedFast->Checked) CmdSpeedSet(2);
+
 	if(Set){ //* Manual
         Mod_PLC->SetValue(PC_D_IROCV_STAGE_AUTO_READY, 0);
 		SendData("MAN", "O");
@@ -166,8 +178,6 @@ void __fastcall TTotalForm::CmdManualMod(bool Set)
 		if(Timer_AutoInspection->Enabled == false)
 			Timer_AutoInspection->Enabled = true;
 	}
-
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::CmdRestart()
