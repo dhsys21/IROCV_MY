@@ -144,9 +144,7 @@ void __fastcall TTotalForm::CmdGetSensorInfo()
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::CmdSpeedSet(int mode)
 {
-    if(mode == 0) MakeData(1, "IRT0");
-    else if(mode == 1) MakeData(1, "IRT1");
-    else if(mode == 2) MakeData(1, "IRT2");
+    MakeData(1, "IRT", mode);
 }
 //---------------------------------------------------------------------------
 void __fastcall TTotalForm::CmdManualMod(bool Set)
@@ -156,6 +154,7 @@ void __fastcall TTotalForm::CmdManualMod(bool Set)
     else if(rbSpeedMed->Checked) CmdSpeedSet(1);
     else if(rbSpeedFast->Checked) CmdSpeedSet(2);
 
+    PLCInitialization();
 	if(Set){ //* Manual
         Mod_PLC->SetValue(PC_D_IROCV_STAGE_AUTO_READY, 0);
 		SendData("MAN", "O");

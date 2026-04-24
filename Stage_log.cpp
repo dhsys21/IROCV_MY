@@ -34,6 +34,12 @@ void __fastcall TTotalForm::WriteSystemInfo()
     ini->WriteString("CELLINFO", "MODELNAME", editModelName->Text);
     ini->WriteString("PASSWORD", "PWD", editPwd->Text);
 
+    //* 측정속도
+    AnsiString speedmode = "2";
+    if(rbSpeedSlow->Checked) speedmode = "0";
+    else if(rbSpeedMed->Checked) speedmode = "1";
+    else if(rbSpeedFast->Checked) speedmode = "2";
+    ini->WriteString("MAIN", "SPEED_MODE", speedmode);
 	//* 최대/최소 대신에 평균값 +/- 범위로 변경
 	//* 2022 11 07
 	ini->WriteBool("MAIN", "USE_AVERAGE", chkUseAverage->Checked);
@@ -64,11 +70,17 @@ bool __fastcall TTotalForm::ReadSystemInfo()
 	file = (AnsiString)BIN_PATH + "SystemInfo_"+ IntToStr(this->Tag) + ".inf";
 
 	ini = new TIniFile(file);
-
 	config.remeasure_use = ini->ReadBool("MAIN", "AUTO_CHECK", true);
 	config.remeasure_cnt = ini->ReadInteger("MAIN", "REMEASURE", 1);
     config.remeasure_alarm_cnt = ini->ReadInteger("MAIN", "REMEASURE_ALARM_COUNT", 5);
 	config.remeasure_bypass = 	ini->ReadBool("MAIN", "REM_BYPASS", false);
+
+    //* 측정속도
+    AnsiString speedmode = "2";
+    speedmode = ini->ReadString("MAIN", "SPEED_MODE", "2");
+    if(speedmode == "0") rbSpeedSlow->Checked = true;
+    else if(speedmode == "1") rbSpeedMed->Checked = true;
+    else if(speedmode == "2") rbSpeedFast->Checked = true;
 
     editNgAlarmCount->Text = ini->ReadString("NG_ALARM_COUNT", "COUNT", "20");
 	//* IR SPEC (min/max 로 한번검사 + average +/-로 한번 더 검사)
