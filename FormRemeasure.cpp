@@ -502,6 +502,7 @@ void __fastcall TRemeasureForm::FormShow(TObject *Sender)
 	this->BringToFront();
 	this->RefreshForm();
 
+    BaseForm->nForm[stage]->WriteRemeasureInfo();
     BaseForm->nForm[stage]->ReadRemeasureInfo();
 }
 //---------------------------------------------------------------------------

@@ -563,6 +563,8 @@ void __fastcall TMeasureInfoForm::advMSAStopClick(TObject *Sender)
 	BaseForm->nForm[stage]->CmdForceStop();
 	BaseForm->nForm[stage]->WriteCommLog("IR/OCV STOP", "MSA TIMER STOP BUTTON");
 	msaTimer->Enabled = false;
+
+    probetimer->Enabled = true;
 }
 //---------------------------------------------------------------------------
 void __fastcall TMeasureInfoForm::WriteResultFile(AnsiString fn, int msaIndex)

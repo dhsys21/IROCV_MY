@@ -176,6 +176,9 @@ void __fastcall TTotalForm::CmdManualMod(bool Set)
 		nStep = 0;
 		if(Timer_AutoInspection->Enabled == false)
 			Timer_AutoInspection->Enabled = true;
+
+        if(MeasureInfoForm->msaTimer->Enabled == true)
+            MeasureInfoForm->msaTimer->Enabled = false;
 	}
 }
 //---------------------------------------------------------------------------
