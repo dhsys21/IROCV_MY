@@ -548,6 +548,7 @@ public:		// User declarations
 	TPanel *pdev[8];
 
 	int acc_remeasure[400];
+    int acc_totaluse[400];
 	int remeasure_info[400];
 	int precharger_okng[400];
 	int chMap[401];

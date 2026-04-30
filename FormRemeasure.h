@@ -26,9 +26,7 @@ __published:	// IDE-managed Components
 	TSaveDialog *SaveDialog;
 	TLabel *Label3;
 	TGroupBox *GroupBox2;
-	TPanel *Panel39;
 	TPanel *Panel40;
-	TPanel *pAccCnt;
 	TPanel *pAccDate;
 	TPanel *pstage;
 	TPanel *pcolor1;
@@ -74,12 +72,19 @@ __published:	// IDE-managed Components
 	TPanel *Panel1;
 	TLabel *Label1;
 	TLabel *Label2;
+	TPanel *Panel20;
+	TPanel *pChannel;
+	TPanel *Panel37;
+	TPanel *pPos;
+	TPanel *Panel39;
+	TPanel *pNgTotalUse;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormHide(TObject *Sender);
 	void __fastcall chInitdblClick(TObject *Sender);
 	void __fastcall AccInitBtnClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+    void __fastcall ChInfoMouseClick(TObject *Sender);
 private:	// User declarations
 	void __fastcall DrawChannelTitle(AnsiString type);
 	void __fastcall MakePanel(AnsiString type);
@@ -97,6 +102,7 @@ public:		// User declarations
 	AnsiString *acc_init;
 
 	int *acc_cnt;
+    int *acc_totaluse;
 
 	TPanel *pre[400];
 	TPanel *pch[400];

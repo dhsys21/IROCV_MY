@@ -432,10 +432,13 @@ void __fastcall TTotalForm::btnRemeasureInfoClick(TObject *Sender)
 {
 	RemeasureForm->stage            = this->Tag;
 	RemeasureForm->acc_remeasure 	= acc_remeasure;
+    RemeasureForm->acc_totaluse     = acc_totaluse;
 	RemeasureForm->acc_init 		= &acc_init;
 	RemeasureForm->acc_cnt			= &acc_cnt;
 
 	RemeasureForm->pstage->Caption	= lblTitle->Caption;
+    RemeasureForm->Left = 200;
+    RemeasureForm->Top = 70;
 	RemeasureForm->Visible = true;
 }
 //---------------------------------------------------------------------------
@@ -1119,6 +1122,7 @@ void __fastcall TTotalForm::SetRemeasureListAfter()
 
     for(int index = 0;index < MAXCHANNEL;++index){
         if(tray.cell[index] == 1){
+            if(tray.first) acc_totaluse[index] += 1;
             if(tray.after_value[index] == 999){                 //* 4 => ¡¢√À∫“∑Æ(CE)
                 retest.cell[index] = 4;
                 retest.cnt_error += 1;
@@ -1160,6 +1164,7 @@ void __fastcall TTotalForm::SetRemeasureList()
 
 		for(int index = 0;index < MAXCHANNEL;++index){
 			if(tray.cell[index] == 1){
+                if(tray.first) acc_totaluse[index] += 1;
                 if(tray.after_value[index] == 999){                 //* 4 => ¡¢√À∫“∑Æ(CE)
                     retest.cell[index] = 4;
                     retest.cnt_error += 1;

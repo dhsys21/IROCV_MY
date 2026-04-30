@@ -22,7 +22,7 @@ void __fastcall TRemeasureForm::RefreshForm()
 {
 
 	for(int i=0; i<MAXCHANNEL; ++i){
-		pre[i]->Caption = acc_remeasure[i];
+		pre[i]->Caption = IntToStr(acc_remeasure[i]);
 		if(acc_remeasure[i] < pcolor2->Caption.ToIntDef(3)){
 			pre[i]->Color = pcolor1->Color;
 			pre[i]->ParentBackground = false;
@@ -36,7 +36,7 @@ void __fastcall TRemeasureForm::RefreshForm()
 //			pre[i]->ParentBackground = false;
 //		}
 	}
-	pAccCnt->Caption = IntToStr(*acc_cnt);
+	//pAccCnt->Caption = IntToStr(*acc_cnt);
 	pAccDate->Caption = *acc_init;
 
 }
@@ -465,6 +465,8 @@ void __fastcall TRemeasureForm::SetOption(TPanel *pnl, int nx, int ny, int nw, i
 	pnl->BevelOuter = bvNone;
 	pnl->Tag = index; // index + 16
 	pnl->Hint = "POS : " + IntToStr((index/20)+1) + "-" + IntToStr((index%20)+1);
+    pnl->OnClick = ChInfoMouseClick;
+//    pnl->OnMouseLeave = ChInfoMouseLeave;
 
 	pnl->ShowHint = true;
 	pnl->OnDblClick = chInitdblClick;
@@ -525,6 +527,7 @@ void __fastcall TRemeasureForm::chInitdblClick(TObject *Sender)
 	str = "Do you want to initialize the channel " + IntToStr(ch+1) +" record??";
    if(MessageBox(Handle, str.c_str(), L"", MB_YESNO|MB_ICONQUESTION) == ID_YES){
 		acc_remeasure[ch] = 0;
+        acc_totaluse[ch] = 0;
 
 		for(int index=0; index<MAXCHANNEL; ++index){
 			if(acc_remeasure[index] >= pcolor2->Caption.ToIntDef(3))
@@ -539,10 +542,13 @@ void __fastcall TRemeasureForm::chInitdblClick(TObject *Sender)
 void __fastcall TRemeasureForm::AccInitBtnClick(TObject *Sender)
 {
 	if(MessageBox(Handle, L"Do you want to initialize all channel record?", L"", MB_YESNO|MB_ICONQUESTION) == ID_YES){
-		for(int i=0; i<MAXCHANNEL; ++i)acc_remeasure[i] = 0;
+		for(int i=0; i<MAXCHANNEL; ++i){
+        	acc_remeasure[i] = 0;
+            acc_totaluse[i] = 0;
+        }
 		BaseForm->nForm[stage]->RemeasureAlarm(0);
 		pAccDate->Caption = Now().FormatString("yyyy. m. d. hh:nn");
-		pAccCnt->Caption = 0;
+		//pAccCnt->Caption = 0;
 		*acc_cnt = 0;
 		*acc_init = pAccDate->Caption;
 		this->RefreshForm();
@@ -556,4 +562,16 @@ void __fastcall TRemeasureForm::FormClose(TObject *Sender, TCloseAction &Action)
     BaseForm->nForm[stage]->WriteRemeasureInfo();
 }
 //---------------------------------------------------------------------------
+void __fastcall TRemeasureForm::ChInfoMouseClick(TObject *Sender)
+{
+	TPanel *pnl;
+	pnl = (TPanel*)Sender;
+	int index;
+	index = pnl->Tag;
+	pChannel->Caption = index + 1;
 
+    int ch = BaseForm->nForm[stage]->chReverseMap[index + 1];
+    pPos->Caption = IntToStr((index/20)+1) + "-" + IntToStr((index%20)+1);
+    pNgTotalUse->Caption = IntToStr(acc_remeasure[index]) + " / " + IntToStr(acc_totaluse[index]);
+}
+//---------------------------------------------------------------------------
