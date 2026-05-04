@@ -78,6 +78,11 @@ __published:	// IDE-managed Components
 	TPanel *pPos;
 	TPanel *Panel39;
 	TPanel *pNgTotalUse;
+	TGroupBox *GroupBox1;
+	TPanel *Panel44;
+	TPanel *pnlTotalTray;
+	TPanel *Panel36;
+	TPanel *pnlFinalNg;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormHide(TObject *Sender);
@@ -103,6 +108,9 @@ public:		// User declarations
 
 	int *acc_cnt;
     int *acc_totaluse;
+
+    int *acc_totaltray;
+    int *acc_finalng;
 
 	TPanel *pre[400];
 	TPanel *pch[400];

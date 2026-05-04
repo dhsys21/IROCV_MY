@@ -554,6 +554,10 @@ public:		// User declarations
 	int chMap[401];
 	int chReverseMap[401];
 
+    //* юс╫ц
+    int acc_totaltray;
+    int acc_finalng;
+
 	int acc_cnt;
 	AnsiString acc_init;
     TDateTime m_dateTime;

@@ -206,6 +206,9 @@ void __fastcall TTotalForm::ReadRemeasureInfo()
     editRemeasureAlarmCount->Text = config.remeasure_alarm_cnt;
 	RemeasureForm->pcolor2->Caption = config.remeasure_alarm_cnt;
 
+    acc_totaltray = ini->ReadInteger(title, "TOTAL_TRAY", 0);
+    acc_finalng = ini->ReadInteger(title, "FINAL_NG", 0);
+
     //* 총 누적불량
 	if(retest_info == "-1"){	// 파일이 존재하지 않으면
 		for(int index=0; index<MAXCHANNEL; ++index){
@@ -269,6 +272,9 @@ void __fastcall TTotalForm::WriteRemeasureInfo()	// Tray가 Vacancy 상태일때 기록
     ini->WriteString(title, "TOTAL_USE", strTotalUse);
 	ini->WriteString(title, "ACCMULATE_DAY", acc_init);
 	ini->WriteInteger(title, "ACC_CNT", acc_cnt);
+
+    ini->WriteInteger(title, "TOTAL_TRAY", acc_totaltray);
+    ini->WriteInteger(title, "FINAL_NG", acc_finalng);
 
 
 	delete ini;

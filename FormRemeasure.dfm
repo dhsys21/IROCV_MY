@@ -989,6 +989,94 @@ object RemeasureForm: TRemeasureForm
       TabOrder = 35
     end
   end
+  object GroupBox1: TGroupBox
+    Left = 994
+    Top = 338
+    Width = 225
+    Height = 100
+    Caption = 'FINAL NG COUNT'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    object Panel44: TPanel
+      Left = 10
+      Top = 60
+      Width = 90
+      Height = 30
+      BevelOuter = bvNone
+      Caption = 'Total Tray'
+      Color = 12353126
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 0
+    end
+    object pnlTotalTray: TPanel
+      Left = 102
+      Top = 60
+      Width = 120
+      Height = 30
+      BevelOuter = bvNone
+      Color = 8552834
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 1
+    end
+    object Panel36: TPanel
+      Left = 10
+      Top = 28
+      Width = 90
+      Height = 30
+      BevelOuter = bvNone
+      Caption = 'Final NG'
+      Color = 12353126
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 2
+    end
+    object pnlFinalNg: TPanel
+      Left = 102
+      Top = 28
+      Width = 120
+      Height = 30
+      BevelOuter = bvNone
+      Color = 8552834
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 3
+    end
+  end
   object SaveDialog: TSaveDialog
     DefaultExt = '*.csv'
     Filter = 'Save(*.csv)|*.csv'

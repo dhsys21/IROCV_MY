@@ -39,6 +39,9 @@ void __fastcall TRemeasureForm::RefreshForm()
 	//pAccCnt->Caption = IntToStr(*acc_cnt);
 	pAccDate->Caption = *acc_init;
 
+    pnlTotalTray->Caption = *acc_totaltray;
+    pnlFinalNg->Caption = *acc_finalng;
+
 }
 //---------------------------------------------------------------------------
 
@@ -551,6 +554,9 @@ void __fastcall TRemeasureForm::AccInitBtnClick(TObject *Sender)
 		//pAccCnt->Caption = 0;
 		*acc_cnt = 0;
 		*acc_init = pAccDate->Caption;
+
+        *acc_totaltray = 0;
+        *acc_finalng = 0;
 		this->RefreshForm();
 	}
 

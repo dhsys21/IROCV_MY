@@ -105,6 +105,10 @@ void __fastcall TTotalForm::FormShow(TObject *Sender)
 
     Initialization();
 	btnMeasureInfoClick(this);
+
+    //* 임시
+    acc_finalng = 0;
+    acc_totaltray = 0;
 }
 //---------------------------------------------------------------------------
 // 구조체 초기화 : 트레이 정보, 재측정 정보
@@ -435,6 +439,8 @@ void __fastcall TTotalForm::btnRemeasureInfoClick(TObject *Sender)
     RemeasureForm->acc_totaluse     = acc_totaluse;
 	RemeasureForm->acc_init 		= &acc_init;
 	RemeasureForm->acc_cnt			= &acc_cnt;
+    RemeasureForm->acc_totaltray    = &acc_totaltray;
+    RemeasureForm->acc_finalng      = &acc_finalng;
 
 	RemeasureForm->pstage->Caption	= lblTitle->Caption;
     RemeasureForm->Left = 200;
@@ -1727,6 +1733,7 @@ void __fastcall TTotalForm::BadInfomation()
     int iCell = 0;
     int iRetest = 0;
     TColor clr;
+    acc_totaltray = acc_totaltray + 1;
 	for(int i = 0; i < 25; ++i){
 		for(int j = 0; j < 16; j++)
 		{
@@ -1747,6 +1754,11 @@ void __fastcall TTotalForm::BadInfomation()
 			{
 				Mod_PLC->SetData(Mod_PLC->pc_Interface_Data, PC_D_IROCV_MEASURE_OK_NG + i, j, true);
 				ngCount++;
+			}
+
+            if(iCell == 1 && (clr == cl_badir->Color || clr == cl_ce->Color))
+			{
+                acc_finalng++;
 			}
 		}
 	}
