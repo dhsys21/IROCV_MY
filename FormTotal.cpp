@@ -46,6 +46,7 @@ __fastcall TTotalForm::TTotalForm(TComponent* Owner)
 	MakePanel(BaseForm->lblLineNo->Caption);
 //	this->ScaleBy(60,100);
 	start_delay_time = 0;
+    max_delay_time = 100;
 
     pProcess[0] = pReady;
 	pProcess[1] = pTrayIn;
@@ -156,6 +157,8 @@ void __fastcall TTotalForm::Initialization()
 	nSection = STEP_WAIT;
 	nStep = 0;
     nCellSerialStep = 0;
+    start_delay_time = 0;
+    max_delay_time = editMaxDelayTime->Text.ToIntDef(50);
 
     DisplayProcess(sReady, "AutoInspection_Wait", " IR/OCV is ready... ");
     n_bMeasureStart = false;
@@ -1980,8 +1983,10 @@ void __fastcall TTotalForm::AutoInspection_Wait()
                 //WriteTrayInfo();
 				DisplayTrayInfo();
 
-				if(start_delay_time > 1){
+                Panel_State->Caption = IntToStr(start_delay_time) + " / " + IntToStr(max_delay_time);
+				if(start_delay_time > max_delay_time){
 
+                    Panel_State->Caption = "";
 					DisplayProcess(sProbeDown, "AutoInspection_Wait", " PROBE IS CLOSED ... ");
 					Mod_PLC->SetValue(PC_D_IROCV_PROB_CLOSE, 1);
 
@@ -2547,6 +2552,12 @@ void __fastcall TTotalForm::rbSpeedFastClick(TObject *Sender)
 {
     TRadioButton *rb = (TRadioButton*)Sender;
     CmdSpeedSet(rb->Tag);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TTotalForm::GroupBox8DblClick(TObject *Sender)
+{
+    editMaxDelayTime->Visible = !editMaxDelayTime->Visible;
 }
 //---------------------------------------------------------------------------
 

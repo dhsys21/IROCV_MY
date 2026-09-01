@@ -340,6 +340,7 @@ __published:	// IDE-managed Components
 	TRadioButton *rbSpeedMed;
 	TRadioButton *rbSpeedFast;
 	TRadioButton *rbSpeedSlow;
+	TEdit *editMaxDelayTime;
 	void __fastcall ClientConnect(TObject *Sender,
 		  TCustomWinSocket *Socket);
 	void __fastcall ClientDisconnect(TObject *Sender,
@@ -396,6 +397,7 @@ __published:	// IDE-managed Components
 	void __fastcall cancelBtn2Click(TObject *Sender);
 	void __fastcall PassEditKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall rbSpeedFastClick(TObject *Sender);
+	void __fastcall GroupBox8DblClick(TObject *Sender);
 
 private:	// User declarations
 //------------ Æû °ü·Ã -------------------//
@@ -563,6 +565,7 @@ public:		// User declarations
     TDateTime m_dateTime;
 
     int start_delay_time;
+    int max_delay_time;
 
 	int nSection, nStep, nStepCount;
 	bool m_bAuto;

@@ -6534,6 +6534,7 @@ object TotalForm: TTotalForm
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 8
+      OnDblClick = GroupBox8DblClick
       object editPwd: TEdit
         Left = 63
         Top = 25
@@ -6614,6 +6615,24 @@ object TotalForm: TTotalForm
       ParentFont = False
       TabOrder = 12
       OnClick = rbSpeedFastClick
+    end
+    object editMaxDelayTime: TEdit
+      Left = 456
+      Top = 194
+      Width = 129
+      Height = 24
+      Alignment = taCenter
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ImeName = 'Microsoft Office IME 2007'
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 13
+      Text = '50'
+      Visible = False
     end
   end
   object pPassword: TPanel

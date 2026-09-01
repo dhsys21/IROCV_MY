@@ -10,4 +10,5 @@ __recovery
 *.ild
 *.ilc
 *.#00
- 
+*.stat
+*.res 
