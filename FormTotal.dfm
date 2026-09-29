@@ -6631,7 +6631,7 @@ object TotalForm: TTotalForm
       NumbersOnly = True
       ParentFont = False
       TabOrder = 13
-      Text = '50'
+      Text = '1'
       Visible = False
     end
   end

@@ -158,7 +158,7 @@ void __fastcall TTotalForm::Initialization()
 	nStep = 0;
     nCellSerialStep = 0;
     start_delay_time = 0;
-    max_delay_time = editMaxDelayTime->Text.ToIntDef(50);
+    max_delay_time = editMaxDelayTime->Text.ToIntDef(1);
 
     DisplayProcess(sReady, "AutoInspection_Wait", " IR/OCV is ready... ");
     n_bMeasureStart = false;
@@ -449,6 +449,7 @@ void __fastcall TTotalForm::btnRemeasureInfoClick(TObject *Sender)
     RemeasureForm->Left = 200;
     RemeasureForm->Top = 70;
 	RemeasureForm->Visible = true;
+    RemeasureForm->BringToFront();
 }
 //---------------------------------------------------------------------------
 // 센서 정보 보기
